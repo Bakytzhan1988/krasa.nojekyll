@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Краса — Треки Бакытжана</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: url('https://files.catbox.moe/0zq8k5.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #e0f0ff;
+      min-height: 100vh;
+    }
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,20,0.85), rgba(10,0,40,0.9));
+      z-index: -1;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      z-index: 10;
+      border-bottom: 1px solid rgba(0,255,255,0.2);
+    }
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.5rem;
+      margin: 0;
+      color: transparent;
+      background: linear-gradient(90deg, #00ffff, #aa00ff, #ff00cc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      text-shadow: 0 0 20px #00ffff, 0 0 40px #aa00ff;
+    }
+    main {
+      padding-top: 140px;
+      padding-bottom: 80px;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .track-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .track-card {
+      background: rgba(10,0,40,0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0,255,255,0.25);
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: 0 0 20px rgba(0,255,255,0.15);
+      transition: all 0.3s;
+    }
+    .track-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 35px rgba(170,0,255,0.45);
+    }
+    .play-btn {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #00ffff, #aa00ff);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: black;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    audio {
+      width: 100%;
+      margin-top: 0.5rem;
+      accent-color: #00ffff;
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      padding: 1rem;
+      color: #aaa;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(170,0,255,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Краса</h1>
+    <p style="margin-top:0.5rem; font-size:1.2rem; color:#88ddff;">
+      Треки Бакытжана — слушай и скачивай бесплатно
+    </p>
+  </header>
+
+  <main>
+    <div id="playlist"></div>
+  </main>
+
+  <footer>
+    Создано в Акtau, 2026
+  </footer>
+
+  <script>
+    const tracks = [
+      { file: "Papiny doshki.mp3",      title: "Papiny doshki" },
+      { file: "Altinay svetli ray.mp3", title: "Altinay svetli ray" },
+      // Добавляй новые треки сюда, например:
+      // { file: "новый-трек.mp3", title: "Новое Название" },
+    ];
+
+    const playlist = document.getElementById('playlist');
+
+    // Создаём ряды по 2 трека
+    for (let i = 0; i < tracks.length; i += 2) {
+      const row = document.createElement('div');
+      row.className = 'track-row';
+
+      if (tracks[i])   row.appendChild(createCard(tracks[i]));
+      if (tracks[i+1]) row.appendChild(createCard(tracks[i+1]));
+
+      playlist.appendChild(row);
+    }
+
+    function createCard(track) {
+      const card = document.createElement('div');
+      card.className = 'track-card';
+      card.innerHTML = `
+        <div class="play-btn" onclick="this.nextElementSibling.querySelector('audio').play()">▶</div>
+        <div class="flex-1">
+          <p class="font-bold text-lg">${track.title}</p>
+          <audio controls>
+            <source src="songs/${track.file}" type="audio/mpeg">
+          </audio>
+        </div>
+      `;
+      return card;
+    }
+  </script>
+
+</body>
+</html>
