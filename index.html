@@ -155,19 +155,27 @@ for (let i = 0; i < tracks.length; i += 2) {
     playlist.appendChild(row);
 }
 
-    function createCard(track) {
-      const card = document.createElement('div');
-      card.className = 'track-card';
-      card.innerHTML = `
+   function createCard(track) {
+    const card = document.createElement('div');
+    card.className = 'track-card';
+    
+    // Создаём аудио-элемент
+    const audio = document.createElement('audio');
+    audio.src = "music/" + track.file;
+    audio.controls = true;  // Добавляем элементы управления
+    
+    card.innerHTML = `
         <div class="play-btn" onclick="this.nextElementSibling.querySelector('audio').play()">▶</div>
         <div class="flex-1">
-          <p class="font-bold text-lg">${track.title}</p>
-          <audio controls>
-            <source src="songs/${track.file}" type="audio/mpeg">
-          </audio>
+            <p class="font-bold text-lg">${track.title}</p>
         </div>
-      `;
-      return card;
+    `;
+    
+    // Добавляем аудио-элемент в карточку
+    card.appendChild(audio);
+    
+    return card;
+}
     }
   </script>
 
