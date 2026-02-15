@@ -134,15 +134,25 @@
     const playlist = document.getElementById('playlist');
 
     // Создаём ряды по 2 трека
-    for (let i = 0; i < tracks.length; i += 2) {
-      const row = document.createElement('div');
-      row.className = 'track-row';
-
-      if (tracks[i])   row.appendChild(createCard(tracks[i]));
-      if (tracks[i+1]) row.appendChild(createCard(tracks[i+1]));
-
-      playlist.appendChild(row);
+   // Создаём ряды по 2 трека
+for (let i = 0; i < tracks.length; i += 2) {
+    const row = document.createElement('div');
+    row.className = 'track-row';
+    
+    // Если есть первый трек в паре — создаём карточку и добавляем
+    if (tracks[i]) {
+        const card = createCard(tracks[i]);
+        row.appendChild(card);
     }
+    
+    // Если есть второй трек в паре — создаём карточку и добавляем
+    if (tracks[i+1]) {
+        const card = createCard(tracks[i+1]);
+        row.appendChild(card);
+    }
+    
+    playlist.appendChild(row);
+}
 
     function createCard(track) {
       const card = document.createElement('div');
